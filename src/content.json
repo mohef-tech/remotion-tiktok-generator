@@ -1,0 +1,28 @@
+{
+  "theme": "emerald-night",
+  "showBadge": true,
+  "badgeText": "JAGONELITI",
+  "authorHandle": "@jagoneliti_",
+  "authorName": "JagoNeliti",
+  "title": "Ditanya Skripsi Langsung Pusing?",
+  "subtitle": "Mau panik tapi harus lulus tahun ini?",
+  "points": [
+    {
+      "heading": "Realita Mahasiswa Tua",
+      "body": "Temen tongkrongan udah Bab 4 kamu masih stuck di judul?",
+      "highlight": "stuck di judul?"
+    },
+    {
+      "heading": "Makin Mepet Deadline",
+      "body": "Judul ditolak terus olah data eror Bab 1 belum ACC.",
+      "highlight": "ditolak eror"
+    },
+    {
+      "heading": "Solusi Instan",
+      "body": "Stop pusing sendiri kita siap bantu beresin tugasmu sampai tuntas!",
+      "highlight": "bantu beresin"
+    }
+  ],
+  "ctaText": "DM @jagoneliti_ Sekarang!",
+  "ctaSubtext": "Konsultasi & Eksekusi Bebas Revisi"
+}
