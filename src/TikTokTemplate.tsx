@@ -6,12 +6,20 @@ import {
   useCurrentFrame,
   useVideoConfig,
   Sequence,
+  Audio,
+  staticFile,
 } from "remotion";
-import { VideoContentConfig } from "./types";
+import { VideoContentConfig, SceneDurations } from "./types";
 import { Sparkles, MessageCircle, ArrowRight } from "lucide-react";
 
-export const TikTokTemplate: React.FC<{ config: VideoContentConfig }> = ({
+interface TikTokTemplateProps {
+  config: VideoContentConfig;
+  sceneDurations: SceneDurations;
+}
+
+export const TikTokTemplate: React.FC<TikTokTemplateProps> = ({
   config,
+  sceneDurations,
 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
@@ -21,24 +29,24 @@ export const TikTokTemplate: React.FC<{ config: VideoContentConfig }> = ({
 
   // Background Ambient Motion
   const bgScale = interpolate(frame, [0, durationInFrames], [1, 1.15]);
-  const orbX = interpolate(
-    Math.sin(frame / 20),
-    [-1, 1],
-    [-80, 80]
-  );
-  const orbY = interpolate(
-    Math.cos(frame / 25),
-    [-1, 1],
-    [-60, 60]
-  );
+  const orbX = interpolate(Math.sin(frame / 20), [-1, 1], [-80, 80]);
+  const orbY = interpolate(Math.cos(frame / 25), [-1, 1], [-60, 60]);
 
-  // Total frames allocation
-  const pointsCount = config.points.length;
-  // Reserve 45 frames at start for intro hook, 60 frames at end for CTA, remainder split among points
-  const introFrames = 45;
-  const ctaFrames = 60;
-  const availableFrames = Math.max(90, durationInFrames - introFrames - ctaFrames);
-  const framesPerPoint = Math.floor(availableFrames / pointsCount);
+  // Calculate cumulative start frames for each scene
+  const introStart = 0;
+  const introDuration = sceneDurations.introFrames;
+
+  // Points start frames
+  const pointStarts: number[] = [];
+  let currentOffset = introDuration;
+  for (let i = 0; i < config.points.length; i++) {
+    pointStarts.push(currentOffset);
+    currentOffset += sceneDurations.pointsFrames[i] || 120;
+  }
+
+  // CTA start frame
+  const ctaStart = currentOffset;
+  const ctaDuration = sceneDurations.ctaFrames;
 
   return (
     <AbsoluteFill
@@ -181,37 +189,48 @@ export const TikTokTemplate: React.FC<{ config: VideoContentConfig }> = ({
           margin: "40px 0",
         }}
       >
-        {/* Intro Hook Scene */}
-        <Sequence from={0} durationInFrames={introFrames} layout="none">
+        {/* 1. Intro Hook Scene */}
+        <Sequence
+          from={introStart}
+          durationInFrames={introDuration}
+          layout="none"
+        >
+          <Audio src={staticFile("audio_intro.mp3")} />
           <IntroHookScene title={config.title} subtitle={config.subtitle} />
         </Sequence>
 
-        {/* Points Kinetic Text Scenes */}
+        {/* 2. Points Kinetic Text Scenes */}
         {config.points.map((point, index) => {
-          const startFrame = introFrames + index * framesPerPoint;
+          const startFrame = pointStarts[index];
+          const duration = sceneDurations.pointsFrames[index] || 120;
+          const audioFile = `audio_point_${index}.mp3`;
+
           return (
             <Sequence
               key={index}
               from={startFrame}
-              durationInFrames={framesPerPoint}
+              durationInFrames={duration}
               layout="none"
             >
+              <Audio src={staticFile(audioFile)} />
               <KineticPointScene
                 index={index + 1}
                 heading={point.heading}
                 body={point.body}
                 highlight={point.highlight}
+                durationInFrames={duration}
               />
             </Sequence>
           );
         })}
 
-        {/* CTA Outro Scene */}
+        {/* 3. CTA Outro Scene */}
         <Sequence
-          from={introFrames + pointsCount * framesPerPoint}
-          durationInFrames={ctaFrames}
+          from={ctaStart}
+          durationInFrames={ctaDuration}
           layout="none"
         >
+          <Audio src={staticFile("audio_cta.mp3")} />
           <CtaOutroScene ctaText={config.ctaText} ctaSubtext={config.ctaSubtext} />
         </Sequence>
       </div>
@@ -326,13 +345,14 @@ const IntroHookScene: React.FC<{ title: string; subtitle?: string }> = ({
   );
 };
 
-// 2. Kinetic Point Scene (Word-by-Word Highlight Dynamic Animation)
+// 2. Kinetic Point Scene (Word-by-Word Highlight Dynamic Animation perfectly timed with audio)
 const KineticPointScene: React.FC<{
   index: number;
   heading: string;
   body: string;
   highlight?: string;
-}> = ({ index, heading, body, highlight }) => {
+  durationInFrames: number;
+}> = ({ index, heading, body, highlight, durationInFrames }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -344,6 +364,8 @@ const KineticPointScene: React.FC<{
   });
 
   const words = body.split(" ");
+  // Calculate per-word frame delay dynamically so words animate smoothly over the exact scene audio duration
+  const perWordFrames = Math.max(1.5, (durationInFrames - 15) / words.length);
 
   return (
     <div
@@ -401,8 +423,8 @@ const KineticPointScene: React.FC<{
         }}
       >
         {words.map((word, wIdx) => {
-          // Staggered word animation frame offset
-          const wordFrame = Math.max(0, frame - wIdx * 2);
+          // Dynamic word animation frame offset
+          const wordFrame = Math.max(0, frame - wIdx * perWordFrames);
           const wordScale = spring({
             frame: wordFrame,
             fps,

@@ -1,0 +1,24 @@
+{
+  "intro": {
+    "text": "Ditanya Skripsi Langsung Pusing?. Mau panik tapi harus lulus tahun ini?",
+    "file": "audio_intro.mp3"
+  },
+  "points": [
+    {
+      "text": "Poin 1. Realita Mahasiswa Tua. Temen tongkrongan udah Bab 4 kamu masih stuck di judul?",
+      "file": "audio_point_0.mp3"
+    },
+    {
+      "text": "Poin 2. Makin Mepet Deadline. Judul ditolak terus olah data eror Bab 1 belum ACC.",
+      "file": "audio_point_1.mp3"
+    },
+    {
+      "text": "Poin 3. Solusi Instan. Stop pusing sendiri kita siap bantu beresin tugasmu sampai tuntas!",
+      "file": "audio_point_2.mp3"
+    }
+  ],
+  "cta": {
+    "text": "DM @jagoneliti_ Sekarang!. Konsultasi & Eksekusi Bebas Revisi",
+    "file": "audio_cta.mp3"
+  }
+}

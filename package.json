@@ -7,7 +7,9 @@
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.533",
+    "@remotion/media-utils": "^4.0.533",
     "@remotion/tailwind-v4": "4.0.533",
+    "google-tts-api": "^2.0.2",
     "lucide-react": "^1.52.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -24,6 +26,7 @@
   },
   "scripts": {
     "dev": "remotion studio",
+    "tts": "node scripts/generate-tts.mjs",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc"

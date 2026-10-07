@@ -5,6 +5,12 @@ export interface PointItem {
   highlight?: string;
 }
 
+export interface SceneDurations {
+  introFrames: number;
+  pointsFrames: number[];
+  ctaFrames: number;
+}
+
 export interface VideoContentConfig {
   theme: "academic-dark" | "emerald-night" | "purple-cosmos" | "midnight-blue";
   showBadge: boolean;
