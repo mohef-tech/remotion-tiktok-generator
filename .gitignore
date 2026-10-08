@@ -1,3 +1,5 @@
 node_modules
 .remotion
 out
+public/audio/*
+catatan.rtf
