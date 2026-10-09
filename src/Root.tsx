@@ -4,6 +4,7 @@ import { getAudioDurationInSeconds } from "@remotion/media-utils";
 import { TikTokTemplate } from "./TikTokTemplate";
 import { InteractiveScene02 } from "./components/InteractiveScene02";
 import { InteractiveScene03 } from "./components/InteractiveScene03";
+import { InteractiveScene05 } from "./components/InteractiveScene05";
 import rawConfig from "./content.json";
 import { VideoContentConfig, SceneDurations } from "./types";
 
@@ -105,6 +106,14 @@ export const RemotionRoot: React.FC = () => {
         id="JagoNeliti-V03"
         component={InteractiveScene03}
         durationInFrames={1100}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="JagoNeliti-V05"
+        component={InteractiveScene05}
+        durationInFrames={900}
         fps={30}
         width={1080}
         height={1920}
