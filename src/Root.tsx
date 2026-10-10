@@ -5,6 +5,7 @@ import { TikTokTemplate } from "./TikTokTemplate";
 import { InteractiveScene02 } from "./components/InteractiveScene02";
 import { InteractiveScene03 } from "./components/InteractiveScene03";
 import { InteractiveScene05 } from "./components/InteractiveScene05";
+import { InteractiveScene06 } from "./components/InteractiveScene06";
 import rawConfig from "./content.json";
 import { VideoContentConfig, SceneDurations } from "./types";
 
@@ -113,6 +114,14 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="JagoNeliti-V05"
         component={InteractiveScene05}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="JagoNeliti-V06"
+        component={InteractiveScene06}
         durationInFrames={900}
         fps={30}
         width={1080}
