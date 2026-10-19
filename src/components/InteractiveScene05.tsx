@@ -10,8 +10,6 @@ import {
   staticFile,
 } from "remotion";
 
-const clamp = (val: number, min: number, max: number) =>
-  Math.min(Math.max(val, min), max);
 
 // Colors & Design Tokens
 const COLORS = {

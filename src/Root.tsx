@@ -6,6 +6,8 @@ import { InteractiveScene02 } from "./components/InteractiveScene02";
 import { InteractiveScene03 } from "./components/InteractiveScene03";
 import { InteractiveScene05 } from "./components/InteractiveScene05";
 import { InteractiveScene06 } from "./components/InteractiveScene06";
+import { InteractiveScene07 } from "./components/InteractiveScene07";
+import { InteractiveScene08 } from "./components/InteractiveScene08";
 import rawConfig from "./content.json";
 import { VideoContentConfig, SceneDurations } from "./types";
 
@@ -123,6 +125,22 @@ export const RemotionRoot: React.FC = () => {
         id="JagoNeliti-V06"
         component={InteractiveScene06}
         durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="JagoNeliti-V07"
+        component={InteractiveScene07}
+        durationInFrames={1361}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="JagoNeliti-V08"
+        component={InteractiveScene08}
+        durationInFrames={1520}
         fps={30}
         width={1080}
         height={1920}
