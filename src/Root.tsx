@@ -9,6 +9,8 @@ import { InteractiveScene06 } from "./components/InteractiveScene06";
 import { InteractiveScene07 } from "./components/InteractiveScene07";
 import { InteractiveScene08 } from "./components/InteractiveScene08";
 import { InteractiveScene09 } from "./components/InteractiveScene09";
+import { InteractiveScene10, SCENE_DURATIONS } from "./components/InteractiveScene10";
+import { InteractiveScene11, SCENE_DURATIONS_V11 } from "./components/InteractiveScene11";
 import rawConfig from "./content.json";
 import { VideoContentConfig, SceneDurations } from "./types";
 
@@ -150,6 +152,34 @@ export const RemotionRoot: React.FC = () => {
         id="JagoNeliti-V09"
         component={InteractiveScene09}
         durationInFrames={1711}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="JagoNeliti-V10"
+        component={InteractiveScene10}
+        durationInFrames={
+          SCENE_DURATIONS.s1 +
+          SCENE_DURATIONS.s2 +
+          SCENE_DURATIONS.s3 +
+          SCENE_DURATIONS.s4 +
+          SCENE_DURATIONS.s5
+        }
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="JagoNeliti-V11"
+        component={InteractiveScene11}
+        durationInFrames={
+          SCENE_DURATIONS_V11.s1 +
+          SCENE_DURATIONS_V11.s2 +
+          SCENE_DURATIONS_V11.s3 +
+          SCENE_DURATIONS_V11.s4 +
+          SCENE_DURATIONS_V11.s5
+        }
         fps={30}
         width={1080}
         height={1920}
